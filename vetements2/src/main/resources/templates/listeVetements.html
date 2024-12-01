@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+<head>
+	<meta charset="utf-8">
+	<title>Liste des Vetements</title>
+</head>
+
+<body>
+	<div th:replace="template"></div>
+
+	<div class="container mt-5">
+		<div class="card">
+			<div class="card-header">
+				Liste des Vetements
+			</div>
+			<div class="card-body">
+
+				<table class="table table-striped">
+					<tr>
+						<th>ID</th>
+						<th>Marque</th>
+						<th>Prix</th>
+					</tr>
+					<tr th:each="v:${vetements.content}">
+						<td th:text="${v.idVet}"></td>
+						<td th:text="${v.marqueVet}"></td>
+						<td th:text="${v.prixVet}"></td>
+						<td><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerVetement(id=${v.idVet},
+						page=${currentPage},size=${size})}">Supprimer</a></td>
+					</tr>
+				</table>
+				<ul class="nav nav-pills">
+					<li th:each="page,status:${pages}">
+						<a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+							th:href="@{ ListeVetements(page=${status.index}, size=${size} ) }"
+							th:text="${status.index }"></a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
